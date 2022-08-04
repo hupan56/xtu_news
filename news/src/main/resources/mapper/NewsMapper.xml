@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtu.news.mapper.NewsMapper">
+
+    <resultMap id="BaseResultMap" type="com.xtu.news.pojo.News">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="newsTitle" column="news_title" jdbcType="VARCHAR"/>
+            <result property="newsContent" column="news_content" jdbcType="VARCHAR"/>
+            <result property="newsType" column="news_type" jdbcType="VARCHAR"/>
+            <result property="newsDept" column="news_dept" jdbcType="VARCHAR"/>
+            <result property="newsTime" column="news_time" jdbcType="DATE"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,news_title,news_content,
+        news_type,news_dept,news_time,
+        is_deleted
+    </sql>
+
+<!--    &lt;!&ndash;获得所有信息&ndash;&gt;-->
+<!--    &lt;!&ndash;    List<Article> getAll();&ndash;&gt;-->
+    <select id="getAll" resultType="news">
+        select
+        <include refid="Base_Column_List"/>
+        from news
+    </select>
+<!--    -->
+<!--    <select id="getNewsType" resultType="string">-->
+<!--        select distinct news_type from news-->
+<!--    </select>-->
+
+
+<!--    &lt;!&ndash;    根据id删除文章&ndash;&gt;-->
+<!--    <select id="deleteByArticleId" resultType="Integer">-->
+<!--        DELETE FROM news WHERE id=#{id}-->
+<!--    </select>-->
+
+
+
+
+<!--    &lt;!&ndash;关键词模糊查找获得文章信息&ndash;&gt;-->
+<!--    &lt;!&ndash;    List<Article> getArticlesByKey(@Param("page") Page<Article>,@Param("keyword") String keyword);&ndash;&gt;-->
+    <select id="getNewsByKey" resultType="news">
+        select
+        <include refid="Base_Column_List"/>
+        from news where news_title like CONCAT("%",#{keyWord},"%")
+        or news_content like CONCAT("%",#{keyWord},"%")
+    </select>
+<!--    &lt;!&ndash;&lt;!&ndash;    根据来源获得不同的文章&ndash;&gt;&ndash;&gt;-->
+<!--    &lt;!&ndash;    <select id="getArticlesBySource" resultType="article">&ndash;&gt;-->
+<!--    &lt;!&ndash;        select&ndash;&gt;-->
+<!--    &lt;!&ndash;        <include refid="Base_Column_List"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;        from operate_articles where article_source =#{source}&ndash;&gt;-->
+<!--    &lt;!&ndash;    </select>&ndash;&gt;-->
+
+
+<!--   -->
+<!--    <select id="getAllArticleField" resultType="string">-->
+<!--        select distinct article_field from operate_articles-->
+<!--    </select>-->
+<!--    <select id="getAllArticleTime" resultType="Integer">-->
+<!--        select distinct year(article_time) from operate_articles-->
+<!--    </select>-->
+
+    <!---->
+    <select id="getNewsByTags" resultType="news">
+        select
+        <include refid="Base_Column_List"/>
+        from news
+        <where>
+            <!--判断位置,再执行模糊查询-->
+            <choose>
+                <when test="location==null or location=='' or location=='不限'">
+                    <if test="keyWord!=null and keyWord!=''">
+                        <!--这里需要加一个小括号,不然会先执行and再执行or-->
+                        (
+                        news_title like CONCAT("%",#{keyWord},"%")
+                        or  news_content like CONCAT("%",#{keyWord},"%")
+                        )
+                    </if>
+                </when>
+                <when test="location=='标题'">
+                    <if test="keyWord!=null and keyWord!=''">
+                        news_title like CONCAT("%",#{keyWord},"%")
+                    </if>
+                </when>
+                <when test="location=='内容'">
+                    <if test="keyWord!=null and keyWord!=''">
+                        news_content like CONCAT("%",#{keyWord},"%")
+                    </if>
+                </when>
+            </choose>
+            <if test="time !=null " >
+                and year(news_time) =#{time}
+            </if>
+            <if test="type!=null and type!=''">
+                and  news_type = #{type}
+            </if>
+            <if test="dept!=null and dept!=''">
+                and  news_dept = #{dept}
+            </if>
+
+        </where>
+    </select>
+
+</mapper>
