@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/*
+/**
  * 总的来说，工具类中有三个方法
  * 获取JwtToken，获取JwtToken中封装的信息，判断JwtToken是否存在
  * 1. encode()，参数是=签发人，存在时间，一些其他的信息=。返回值是JwtToken对应的字符串
@@ -22,13 +22,12 @@ import java.util.UUID;
  * */
 public class JwtUtils {
     //创建默认的秘钥和算法，供无参的构造方法使用
-    private static final String defaultbase64EncodedSecretKey = "java后端指南";
+    private static final String defaultbase64EncodedSecretKey = "湘潭大学XTU302";
     private static final SignatureAlgorithm defaultsignatureAlgorithm = SignatureAlgorithm.HS256;
 
     public JwtUtils() {
         this(defaultbase64EncodedSecretKey, defaultsignatureAlgorithm);
     }
-
     private final String base64EncodedSecretKey;
     private final SignatureAlgorithm signatureAlgorithm;
 
@@ -36,7 +35,6 @@ public class JwtUtils {
         this.base64EncodedSecretKey = Base64.encodeBase64String(secretKey.getBytes());
         this.signatureAlgorithm = signatureAlgorithm;
     }
-
     /*
      *这里就是产生jwt字符串的地方
      * jwt字符串包括三个部分

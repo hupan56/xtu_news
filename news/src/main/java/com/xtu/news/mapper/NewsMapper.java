@@ -19,38 +19,24 @@ public interface NewsMapper extends BaseMapper<News> {
 
 
 
-
+    //获得所有文章
     Page<News> getAll(@Param("page") Page<News> page);
-
-
+    //关键词模糊查询
     Page<News> getNewsByKey(@Param("page") Page<News> page,@Param("keyWord") String keyWord);
-//
-//
-//    //    获得新闻所有分类
-//    List<String> getNewsType();
-//    //    获得文章所有领域
-//    List<String> getAllArticleField();
-//    //    获得文章所有时间
-//    List<Integer> getAllArticleTime();
-//    //    通过关键词模糊查询所有文章
-
-//
-//    //    根据不同标签进行筛选,采取动态sql  Location:搜索位置 time :搜索时间 type:搜索类型
+    //    获得新闻所有分类
+    List<String> getAllNewsType();
+    //    获得文章所有领域
+    List<String> getAllNewsDept();
+    //    获得文章所有时间
+    List<Integer> getAllNewsYear();
+    //    通过关键词模糊查询所有文章
+    //    根据不同标签进行筛选,采取动态sql  Location:搜索位置 time :搜索时间 type:搜索类型
     Page<News> getNewsByTags(@Param("page") Page<News> page,@Param("keyWord") String keyWord,
                                     @Param("location")  String location ,@Param("time") Integer time,
                                     @Param("type") String type,@Param("dept") String dept
 
     );
-//
-////    根据文章不同的分类返回信息
-////     Page<Article> getArticlesBySource(@Param("page") Page<Article> page,@Param("source") String source);
-//
-//    //根据id删除文章
-//    int deleteByArticleId(Integer id);
-//
-//
-//    @Override
-//    int insert(News entity);
+
 
 
 

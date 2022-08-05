@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ *实现接口
  */
 @Service
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
@@ -17,7 +17,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
 
     @Autowired
     AdminMapper adminMapper;
-
+    //通过用户名获得管理员。用于确认token
     @Override
     public Admin getAdminByName(String name) {
        Admin adminByName = adminMapper.getAdminByName(name);

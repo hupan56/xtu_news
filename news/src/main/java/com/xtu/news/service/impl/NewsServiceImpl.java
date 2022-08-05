@@ -14,17 +14,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
+ *实现接口
  */
 @Service
 public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
     implements NewsService{
-
-
     @Autowired
     NewsMapper newsMapper;
 
-
+    //根据关键词进行一个模糊搜索
     public List<News> getNewsByKey(String keyWord, int currentPage, int pageSize) {
         //        这里需要进行一个判断都keyWord为空或者空字符串时，进入全部搜索
         if(keyWord==" "||keyWord==null||keyWord==""){
@@ -38,6 +36,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         }
 
     }
+    //根据条件过滤筛选
     @Override
     public List<News> getNewsByTags(String keyWord,
                                     String location, Integer time,
@@ -47,30 +46,21 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News>
         newsMapper.getNewsByTags(page,keyWord, location, time, type, dept);
         return page.getRecords();
     }
-
-
-//    @Override
-//    public IPage<News> getPage(int currentPage, int pageSize) {
-//        IPage<News> page=new Page<>(currentPage,pageSize);
-//        newsMapper.selectPage(page,null);
-//        return page;
-//    }
-//
-//    @Override
-//    public IPage<News> getPage(int currentPage, int pageSize, News news) {
-//        LambdaQueryWrapper<News> lqw=new LambdaQueryWrapper<News>();
-//        lqw.like(Strings.isNotEmpty(news.getNewsType()),News::getNewsType,news.getNewsType());
-//        lqw.like(Strings.isNotEmpty(news.getNewsTitle()),News::getNewsTitle,news.getNewsTitle());
-//        lqw.like(Strings.isNotEmpty(news.getNewsContent()),News::getNewsContent,news.getNewsContent());
-//        lqw.like(news.getNewsTime()!=null,News::getNewsTime,news.getNewsTime());
-//        lqw.like(Strings.isNotEmpty(news.getNewsDept()),News::getNewsDept,news.getNewsDept());
-//        IPage<News> page=new Page<>(currentPage,pageSize);
-//        newsMapper.selectPage(page,lqw);
-//        return page;
-//
-//    }
-
-
+    //获得所有新闻分类
+    @Override
+    public List<String> getAllNewsType() {
+        return newsMapper.getAllNewsType();
+    }
+    //获得所有新闻发布部门
+    @Override
+    public List<String> getAllNewsDept() {
+        return newsMapper.getAllNewsDept();
+    }
+    //获得所有新闻发布年份
+    @Override
+    public List<Integer> getAllNewsYear() {
+        return newsMapper.getAllNewsYear();
+    }
 }
 
 

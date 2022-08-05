@@ -19,8 +19,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
-
+/**
+* springBoot整合jwt+shiro配置
+*/
 
 //springBoot整合jwt实现认证有三个不一样的地方，对应下面abc
 @Configuration
@@ -32,12 +33,10 @@ public class ShiroConfig {
     public SubjectFactory subjectFactory() {
         return new JwtDefaultSubjectFactory();
     }
-
     @Bean
     public Realm realm() {
         return new JwtRealm();
     }
-
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -56,7 +55,6 @@ public class ShiroConfig {
         securityManager.setSubjectFactory(subjectFactory());
         return securityManager;
     }
-
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
@@ -72,18 +70,16 @@ public class ShiroConfig {
         //这个地方其实另外两个filter可以不设置，默认就是
         filterMap.put("anon", new AnonymousFilter());
         filterMap.put("jwt", new JwtFilter());
-        filterMap.put("logout", new LogoutFilter());
+//        filterMap.put("logout", new LogoutFilter());
         shiroFilter.setFilters(filterMap);
-
         // 拦截器
         Map<String, String> filterRuleMap = new LinkedHashMap<>();
 
         filterRuleMap.put("/login", "anon");
         filterRuleMap.put("/swagger-ui.html", "anon");
-        filterRuleMap.put("/logout", "logout");
+//        filterRuleMap.put("/logout", "jwt");
         filterRuleMap.put("/admin/*", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterRuleMap);
-
         return shiroFilter;
     }
 }

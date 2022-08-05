@@ -7,12 +7,15 @@ import com.xtu.news.mapper.NewsMapper;
 import com.xtu.news.pojo.News;
 import com.xtu.news.service.impl.AdminServiceImpl;
 import com.xtu.news.service.impl.NewsServiceImpl;
+
 import javafx.beans.binding.ObjectExpression;
+import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @SpringBootTest
@@ -88,6 +91,21 @@ class NewsApplicationTests {
     }
 ////        System.out.println(newsService.getNewsByKey("同志", 1,5));
 
+
+    @Resource
+    private StringEncryptor stringEncryptor;
+
+    @Test
+    void testPWD(){
+        String root = stringEncryptor.encrypt("root");
+        System.out.println("====================");
+        System.out.println(root);
+
+        String decrypt = stringEncryptor.decrypt(root);
+        System.out.println("============================");
+        System.out.println(decrypt);
+
+    }
 ////
 
 }

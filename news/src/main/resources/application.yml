@@ -30,3 +30,7 @@ file:
     url: D:/programming/Demo/SpringBootStudy/articcle/src/main/java/com/hp/test
   download:
     url: D:\programming\Demo\SpringBootStudy\articcle\src\main\java\com\hp\test
+
+jasypt:
+  encryptor:
+    password: xtuNews

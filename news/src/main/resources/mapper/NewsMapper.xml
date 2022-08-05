@@ -57,13 +57,16 @@
 <!--    &lt;!&ndash;    </select>&ndash;&gt;-->
 
 
-<!--   -->
-<!--    <select id="getAllArticleField" resultType="string">-->
-<!--        select distinct article_field from operate_articles-->
-<!--    </select>-->
-<!--    <select id="getAllArticleTime" resultType="Integer">-->
-<!--        select distinct year(article_time) from operate_articles-->
-<!--    </select>-->
+
+    <select id="getAllNewsType" resultType="string">
+        select distinct news_Type from news
+    </select>
+    <select id="getAllNewsDept" resultType="string">
+        select distinct news_dept from news
+    </select>
+    <select id="getAllNewsYear" resultType="Integer">
+        select distinct year(news_time) from news
+    </select>
 
     <!---->
     <select id="getNewsByTags" resultType="news">

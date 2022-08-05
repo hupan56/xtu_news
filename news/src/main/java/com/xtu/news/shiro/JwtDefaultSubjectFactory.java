@@ -4,7 +4,7 @@ import org.apache.shiro.subject.SubjectContext;
 import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 
 public class JwtDefaultSubjectFactory extends DefaultWebSubjectFactory {
-
+    //关闭shiro的session
     @Override
     public Subject createSubject(SubjectContext context) {
         // 不创建 session

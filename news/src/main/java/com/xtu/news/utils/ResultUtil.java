@@ -4,6 +4,9 @@ package com.xtu.news.utils;
 
 import lombok.Data;
 
+/**
+ * 封装的结果集对象
+* */
 @Data
 public class ResultUtil {
     private Object data;

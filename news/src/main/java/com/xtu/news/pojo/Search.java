@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
+/**
+ * 封装的搜索结果对象，即传过来的对象格式
+* */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,12 +19,6 @@ public class Search {
      * 新闻标题
      */
     private String newsTitle;
-
-    /**
-     * 新闻内容
-     */
-    private String newsContent;
-
     /**
      * 新闻类型
      */
